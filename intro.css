@@ -1,0 +1,188 @@
+/* RESET */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #000;
+  overflow: hidden;
+  font-family: system-ui, sans-serif;
+}
+
+/* BACKGROUND */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(239,68,68,.15), transparent 40%),
+    radial-gradient(circle at 80% 30%, rgba(168,85,247,.15), transparent 40%),
+    radial-gradient(circle at 50% 80%, rgba(59,130,246,.12), transparent 40%);
+  opacity: .6;
+}
+
+/* INTRO */
+#intro {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+}
+
+
+/* SHAKE */
+.shake {
+  animation: shake .35s ease;
+}
+@keyframes shake {
+  0% { transform: translate(0,0); }
+  25% { transform: translate(-6px,4px); }
+  50% { transform: translate(5px,-5px); }
+  75% { transform: translate(-4px,3px); }
+  100% { transform: translate(0,0); }
+}
+
+/* BRANCHES */
+#branches {
+  position: absolute;
+  inset: 0;
+  stroke: rgba(239,68,68,.35);
+  stroke-width: .8;
+  fill: none;
+  filter: drop-shadow(0 0 12px rgba(239,68,68,.5));
+  pointer-events: none;
+}
+
+.branch {
+  stroke-dasharray: 300;
+  stroke-dashoffset: 300;
+  animation: grow 3s ease forwards, sway 6s ease-in-out infinite;
+}
+
+@keyframes grow {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes sway {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* ORBS */
+#orbCanvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* PLAY */
+#playBtn {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: transparent;
+  border: 3px solid #ef4444;
+  box-shadow: 0 0 80px rgba(239,68,68,0.9);
+  z-index: 20;
+  cursor: pointer;
+}
+#playBtn:hover {
+  box-shadow: 0 0 120px rgba(239,68,68,1);
+}
+/* PLAY ICON */
+.triangle {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 0;
+  height: 0;
+  border-left: 38px solid #ef4444;
+  border-top: 24px solid transparent;
+  border-bottom: 24px solid transparent;
+  transform: translateX(6px);
+}
+#playBtn:active {
+  transform: scale(0.95);
+  box-shadow: 0 0 40px rgba(239,68,68,1);
+}
+
+/* LOGO */
+#logoA {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 38vw;
+  font-weight: 900;
+  opacity: 0;
+  pointer-events: none;
+    transition: opacity .5s ease .3s;
+    opacity: 0;
+}
+
+.show-logo #logoA { opacity: 1; }
+
+.a {
+  position: absolute;
+  mix-blend-mode: screen;
+  transition:
+    transform 0.45s cubic-bezier(.22,.61,.36,1),
+    opacity 0.35s ease,
+    filter 0.35s ease;
+}
+
+.a1 { color: red; }
+.a2 { color: lime; }
+.a3 { color: dodgerblue; }
+
+/* FRACTURE */
+.fracture .a1 { transform: translate(-120px,60px) rotate(-10deg); }
+.fracture .a2 { transform: translate(0,-140px) rotate(6deg); }
+.fracture .a3 { transform: translate(120px,-60px) rotate(10deg); }
+
+/* RGB */
+.rgb .a1 { transform: translateX(-260px); opacity: 0; }
+.rgb .a2 { transform: translateY(-240px); opacity: 0; }
+.rgb .a3 { transform: translateX(260px); opacity: 0; }
+/* RGB SPLIT — NETFLIX STYLE */
+.rgb .a1 {
+  transform: translateX(-420px) skewX(-8deg);
+  filter: blur(1px);
+  opacity: 0;
+}
+
+.rgb .a2 {
+  transform: scale(1.15);
+  filter: blur(2px);
+  opacity: 0;
+}
+
+.rgb .a3 {
+  transform: translateX(420px) skewX(8deg);
+  filter: blur(1px);
+  opacity: 0;
+}
+
+/* FADE */
+#fade {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  opacity: 0;
+  transition: opacity .7s ease;
+  z-index: 30;
+  pointer-events: none; /* 🔑 THIS FIXES CLICKS */
+}
+
+.fade-in #fade {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+
+.fade-in #fade { opacity: 1; }
+#orbCanvas,
+#branches {
+  pointer-events: none;
+}

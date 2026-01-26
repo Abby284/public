@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Enter</title>
+  <link rel="stylesheet" href="intro.css" />
+</head>
+<body>
+
+<div id="intro">
+
+  <!-- BRANCHES -->
+  <svg id="branches" viewBox="0 0 100 100" preserveAspectRatio="none">
+    <path class="branch" d="M0,0 C20,30 35,40 50,50" />
+    <path class="branch" d="M100,0 C80,30 65,40 50,50" />
+    <path class="branch" d="M0,100 C20,70 35,60 50,50" />
+    <path class="branch" d="M100,100 C80,70 65,60 50,50" />
+  </svg>
+
+  <!-- ORBS -->
+  <canvas id="orbCanvas"></canvas>
+
+  <!-- PLAY BUTTON -->
+  <button id="playBtn" aria-label="Enter site">
+    <span class="triangle"></span>
+  </button>
+
+  <!-- LOGO -->
+  <div id="logoA">
+    <span class="a a1">A</span>
+    <span class="a a2">A</span>
+    <span class="a a3">A</span>
+  </div>
+
+</div>
+
+<!-- FADE -->
+<div id="fade"></div>
+
+<!-- SOUNDS -->
+<audio id="crackSound" src="crack.mp3" preload="auto"></audio>
+<audio id="whooshSound" src="whoosh.mp3" preload="auto"></audio>
+
+<script src="intro.js"></script>
+</body>
+</html>
