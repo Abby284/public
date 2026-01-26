@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Abhishek | Portfolio</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Devicons -->
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"/>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { primary: "#ef4444" }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    * { cursor: none; }
+
+    body {
+      background:
+        radial-gradient(circle at 20% 20%, rgba(239,68,68,.15), transparent 40%),
+        radial-gradient(circle at 80% 30%, rgba(168,85,247,.15), transparent 40%),
+        radial-gradient(circle at 50% 80%, rgba(59,130,246,.12), transparent 40%),
+        #000;
+      overflow-x: hidden;
+    }
+
+    /* Cursor */
+    #cursor {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ef4444;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 99999;
+    }
+
+    /* Reveal (safe) */
+    .section {
+      opacity: 1;
+      transform: none;
+      transition: all .8s ease;
+    }
+    .section.reveal {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    .section.reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Floating image */
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    /* Tech stack marquee */
+    .tech-marquee {
+      overflow: hidden;
+      mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    }
+
+    .tech-track {
+      display: flex;
+      gap: 2.5rem;
+      width: max-content;
+    }
+
+    .tech-track.fast { animation: scroll 26s linear infinite; }
+    .tech-track.slow { animation: scroll 38s linear infinite; }
+
+    @keyframes scroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    .tech-item {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      padding: .9rem 1.6rem;
+      border-radius: 9999px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.14);
+      backdrop-filter: blur(10px);
+      font-weight: 600;
+      white-space: nowrap;
+      transition: transform .3s ease, box-shadow .3s ease;
+    }
+
+    .tech-item i { font-size: 1.6rem; }
+
+    .tech-item:hover {
+      transform: translateY(-6px) scale(1.04);
+      box-shadow: 0 0 32px rgba(239,68,68,.45);
+    }
+
+    .tech-item::after {
+      content: attr(data-tip);
+      position: absolute;
+      bottom: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,.85);
+      padding: 6px 6px;
+      border-radius: 6px;
+      font-size: .75rem;
+      opacity: 0;
+      transition: opacity .25s ease;
+    }
+
+    .tech-item:hover::after { opacity: 1; }
+
+    /* Timeline */
+    .timeline {
+      border-left: 2px solid rgba(239,68,68,.35);
+      margin-left: 1.5rem;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-left: 2.5rem;
+      padding-bottom: 2.5rem;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -9px;
+      top: 6px;
+      width: 14px;
+      height: 14px;
+      background: #ef4444;
+      border-radius: 50%;
+      box-shadow: 0 0 18px rgba(239,68,68,.6);
+    }
+
+    .timeline-card {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 1rem;
+      padding: 1.5rem;
+    }
+
+    @media (max-width:768px) {
+      * { cursor: auto; }
+      #cursor { display: none; }
+    }
+    /* ================= FLOATING GLOW ORBS ================= */
+
+#bg-orbs {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* subtle glow blending */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.03), transparent 70%);
+  z-index: -2;
+}
+/* ================= PROJECT THUMBNAILS ================= */
+
+.project-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+  background-size: cover;
+  background-position: center;
+  transition: transform .35s ease, box-shadow .35s ease;
+}
+
+/* dark overlay for readability */
+.project-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.25),
+      rgba(0,0,0,0.85)
+    );
+  z-index: 0;
+}
+
+/* content above overlay */
+.project-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* hover effect */
+.project-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 35px rgba(239,68,68,0.45);
+}
+
+/* subtle zoom on hover */
+.project-card:hover::before {
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.15),
+      rgba(0,0,0,0.9)
+    );
+}/* Carousel Container */
+.cert-marquee {
+  display: flex;
+  width: 100%;
+}
+
+.cert-track {
+  display: flex;
+  gap: 2rem;
+  width: max-content;
+  animation: cert-scroll 40s linear infinite;
+}
+
+/* Pause on hover so people can actually read the certs */
+.cert-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes cert-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Certificate Cards */
+.cert-card {
+  width: 350px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.5rem;
+  padding: 1rem;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+}
+
+.cert-card:hover {
+  border-color: #ef4444;
+  background: rgba(255, 255, 255, 0.07);
+  transform: translateY(-5px);
+}
+
+.cert-img-container {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 1rem;
+  overflow: hidden;
+  background: #111;
+}
+
+.cert-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.85;
+  transition: opacity 0.3s ease;
+}
+
+.cert-card:hover .cert-img-container img {
+  opacity: 1;
+}
+.project-card-glow {
+  position: relative;
+}
+.project-card-glow::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(45deg, #ef4444, transparent, #ef4444);
+  z-index: -1;
+  border-radius: 1.1rem;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+.project-card-glow:hover::after {
+  opacity: 0.3;
+}
+/* Contact Input Styling */
+.contact-input {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.75rem;
+  color: white;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.contact-input:focus {
+  border-color: #ef4444;
+  background: rgba(0, 0, 0, 0.6);
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.1);
+}
+
+/* Social Buttons */
+.social-icon-btn {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  font-size: 1.4rem;
+  transition: all 0.3s ease;
+}
+
+.social-icon-btn:hover {
+  transform: translateY(-5px);
+  background: #ef4444;
+  color: white;
+  border-color: #ef4444;
+  box-shadow: 0 10px 20px rgba(239, 68, 68, 0.3);
+}
+
+.hero-chamber {
+  animation: atmospheric-flicker 6s infinite;
+  /* Add a subtle red tint to the background that flickers with it */
+  background: radial-gradient(circle at top right, rgba(239, 68, 68, 0.05), transparent);
+  backdrop-filter: blur(10px);
+}
+
+/* Optional: Make the primary text glow along with the box */
+.hero-chamber .text-primary {
+    transition: text-shadow 0.1s;
+}
+
+.hero-chamber:hover {
+    animation-duration: 0.5s; /* "Revving" the flicker when you hover */
+    cursor: pointer;
+}
+  </style>
+</head>
+
+<body class="text-white">
+<div id="cursor"></div>
+<!-- FLOATING BACKGROUND -->
+<canvas id="bg-orbs"></canvas>
+<div id="scroll-gauge" class="fixed bottom-6 right-6 z-[100] w-24 h-24 pointer-events-none opacity-0 transition-opacity duration-500 md:block hidden">
+  <svg class="w-full h-full -rotate-90">
+    <circle cx="48" cy="48" r="40" stroke="rgba(255,255,255,0.1)" stroke-width="6" fill="transparent" />
+    <circle id="gauge-needle" cx="48" cy="48" r="40" stroke="#ef4444" stroke-width="6" fill="transparent" 
+            stroke-dasharray="251.2" stroke-dashoffset="251.2" stroke-linecap="round" />
+  </svg>
+  <div class="absolute inset-0 flex flex-col items-center justify-center pt-2">
+    <span id="speedo-percent" class="text-xs font-bold italic tracking-tighter">0</span>
+    <span class="text-[8px] uppercase text-gray-500 font-bold">Rev/Scroll</span>
+  </div>
+</div>
+<main>
+<!-- NAVBAR -->
+<nav class="fixed top-0 left-0 w-full z-[100] flex justify-between px-8 py-4 border-b border-white/10 backdrop-blur-md bg-black/50">
+  <h1 class="text-2xl font-bold text-primary tracking-tighter">Abhi<span class="text-white">.dev</span></h1>
+ <button id="menu-toggle" class="md:hidden text-2xl text-white">
+  ☰
+</button> <div class="hidden md:flex gap-8 text-sm font-medium uppercase tracking-widest text-gray-400">
+    <a href="#about" class="hover:text-primary transition-colors">About</a>
+    <a href="#stack" class="hover:text-primary transition-colors">Stack</a>
+    <a href="#certificates" class="hover:text-primary transition-colors">Certifications</a>
+    <a href="#projects" class="hover:text-primary transition-colors">Work</a>
+    <a href="#contact" class="hover:text-primary transition-colors">Contact</a>
+  </div>
+</nav>
+<div class="h-20"></div>
+
+<section class="min-h-[80vh] flex items-center justify-center px-8 relative overflow-hidden">
+  <div class="hero-chamber max-w-6xl w-full grid md:grid-cols-2 gap-10 p-12 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-md relative z-10">
+    
+    <div>
+      <h1 class="text-6xl font-extrabold leading-tight">
+        Hi, I’m <span class="text-primary hero-name">Abhishek</span><br>
+        <span class="text-3xl text-gray-400 font-light italic">I build <span id="typing-text"></span></span>
+      </h1>
+      <p class="mt-6 text-gray-300 text-lg">
+        Creative developer by day, movie buff by night. Building stuff because cubicles are for the movies.
+      </p>
+      <div class="mt-8 flex gap-4">
+        <a href="#projects" class="bg-primary px-6 py-3 rounded-xl hover:shadow-[0_0_20px_#ef4444] transition-all">View Work</a>
+        <a href="resume.pdf" class="border border-white/20 px-6 py-3 rounded-xl hover:bg-white/10 transition-all">Resume</a>
+      </div>
+    </div>
+
+    <div class="flex justify-center">
+      <div class="w-72 h-72 rounded-3xl overflow-hidden animate-[float_6s_ease-in-out_infinite] border border-white/10 shadow-2xl">
+        <img src="me.jpg" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700">
+      </div>
+    </div>
+
+  </div>
+</section>
+<!-- ABOUT -->
+<section id="about" class="section reveal px-8 py-20 max-w-6xl mx-auto">
+  <div class="grid md:grid-cols-2 gap-12 items-center">
+    
+    <div class="order-2 md:order-1">
+      <h2 class="text-4xl font-bold mb-6 italic italic text-primary">"Cut! Let's take that again..."</h2>
+      <div class="space-y-4 text-gray-300 leading-relaxed text-lg">
+        <p>
+          I’ll be honest—I’m not a "code-is-life" kind of developer. For me, coding is just another way to be creative, like a director framing a shot. I hate the idea of a boring 9-to-5 cubicle; I’d much rather spend my time building something that looks cool and actually solves a problem.
+        </p>
+        <p>
+          Currently, I'm a student at <span class="text-white">KIIT-DU</span>. I did pretty well in school (95% in 10th!), but I quickly realized that textbooks aren't nearly as fun as real-world projects or a good movie script.
+        </p>
+        <p>
+          When my laptop is closed, you’ll find me on a long bike ride, catching a cricket match, or re-watching a Christopher Nolan film for the 10th time trying to figure out the timeline.
+        </p>
+      </div>
+    </div>
+
+    <div class="order-1 md:order-2">
+      <div class="bg-white/5 border border-white/10 p-6 rounded-2xl backdrop-blur-xl -md rotate-3 hover:rotate-0 transition-transform duration-500">
+        <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+          <span class="text-primary text-2xl">●</span> My Off-Screen Interests
+        </h3>
+        
+        <div class="space-y-4">
+          <div class="p-3 bg-black/40 rounded-lg border border-white/5 group hover:border-primary/50 transition">
+            <p class="text-primary text-xs font-bold uppercase tracking-tighter">Current Mood</p>
+            <p class="text-white font-medium"> Movie Buff: Re watching classics and discovering new ones</p>
+          </div>
+
+          <div class="p-3 bg-black/40 rounded-lg border border-white/5 group hover:border-primary/50 transition">
+            <p class="text-primary text-xs font-bold uppercase tracking-tighter">Weekend Plans</p>
+            <p class="text-white font-medium"> Biking: Chasing sunsets on the highway</p>
+            <p class="text-white font-medium">eating street food</p>
+          </div>
+
+          <div class="p-3 bg-black/40 rounded-lg border border-white/5 group hover:border-primary/50 transition">
+            <p class="text-primary text-xs font-bold uppercase tracking-tighter">On the Screen</p>
+            <p class="text-white font-medium"> Cricket: Analyzing the death overs</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- STACK FLOW -->
+<section id="stack" class="section reveal px-8 py-20">
+  <h2 class="text-4xl font-bold mb-6">Stack in <span class="text-primary">Motion</span></h2>
+
+  <div class="tech-marquee">
+    <div class="tech-track fast">
+      <div class="tech-item" data-tip="Structure"><i class="devicon-html5-plain colored"></i>HTML</div>
+      <div class="tech-item" data-tip="Styling"><i class="devicon-css3-plain colored"></i>CSS</div>
+      <div class="tech-item" data-tip="Utility CSS"><i class="devicon-tailwindcss-plain colored"></i>Tailwind</div>
+      <div class="tech-item" data-tip="Logic"><i class="devicon-javascript-plain colored"></i>JavaScript</div>
+      <div class="tech-item"><i class="devicon-html5-plain colored"></i>HTML</div>
+      <div class="tech-item"><i class="devicon-css3-plain colored"></i>CSS</div>
+      <div class="tech-item"><i class="devicon-tailwindcss-plain colored"></i>Tailwind</div>
+      <div class="tech-item"><i class="devicon-javascript-plain colored"></i>JavaScript</div>
+    </div>
+  </div>
+
+  <div class="tech-marquee mt-8">
+    <div class="tech-track slow">
+      <div class="tech-item"><i class="devicon-nodejs-plain colored"></i>Node</div>
+      <div class="tech-item"><i class="devicon-express-original"></i>Express</div>
+      <div class="tech-item"><i class="devicon-git-plain colored"></i>Git</div>
+      <div class="tech-item"><i class="devicon-github-original"></i>GitHub</div>
+      <div class="tech-item"><i class="devicon-npm-original-wordmark colored"></i>NPM</div>
+      <div class="tech-item"><i class="devicon-nodejs-plain colored"></i>Node</div>
+      <div class="tech-item"><i class="devicon-express-original"></i>Express</div>
+      <div class="tech-item"><i class="devicon-git-plain colored"></i>Git</div>
+      <div class="tech-item"><i class="devicon-github-original"></i>GitHub</div>
+      <div class="tech-item"><i class="devicon-npm-original-wordmark colored"></i>NPM</div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education" class="section reveal px-8 py-20 max-w-6xl">
+  <h2 class="text-4xl font-bold mb-8">Education <span class="text-primary">Timeline</span></h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="text-sm text-gray-400">2020 – 2021</div>
+        <h3 class="text-xl font-semibold">Class 10th- 95%(science stream from ASPAM scottish school)</h3>
+        <p class="text-gray-300">passed with distinction</p>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="text-sm text-gray-400">2021 – 2023</div>
+        <h3 class="text-xl font-semibold">Class 12th- 84%(science stream from ASPAM scottish school)</h3>
+        <p class="text-gray-300">passed with distinction</p>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="text-sm text-gray-400">2023 – Present</div>
+        <h3 class="text-xl font-semibold">Bachelors in Computer Science(KIIT-DU)</h3>
+        <p class="text-gray-300">Core CS fundamentals, DSA, systems,DBMS,CN, and software engineering.</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <div class="text-sm text-gray-400">Self Learning</div>
+        <h3 class="text-xl font-semibold">Full-Stack Development</h3>
+        <p class="text-gray-300">Hands-on projects, documentation, real-world problem solving.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="certificates" class="section reveal px-8 py-20 overflow-hidden">
+  <h2 class="text-4xl font-bold mb-10 text-center">
+    Professional <span class="text-primary">Certifications</span>
+  </h2>
+
+  <div class="relative max-w-7xl mx-auto">
+    <div class="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-[#000] to-transparent z-10"></div>
+    <div class="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-[#000] to-transparent z-10"></div>
+
+    <div class="cert-marquee">
+      <div class="cert-track">
+        <div class="cert-card">
+          <div class="cert-img-container">
+            <img src="cert1.png" alt="Certification 1">
+          </div>
+          <h3 class="mt-4 font-semibold text-lg">buisness for good</h3>
+          <p class="text-gray-400 text-sm">coursera|2025</p>
+        </div>
+        <div class="cert-card">
+          <div class="cert-img-container">
+            <img src="cert2.png" alt="Certification 2">
+          </div>
+          <h3 class="mt-4 font-semibold text-lg">corporate governance</h3>
+          <p class="text-gray-300 text-sm">coursera|2025</p>
+        </div>
+        <div class="cert-card">
+          <div class="cert-img-container">
+            <img src="cert5.jpeg" alt="Certification 3">
+          </div>
+          <h3 class="mt-4 font-semibold text-lg">ethical decision making</h3>
+          <p class="text-gray-400 text-sm">coursera|2025</p>
+        </div>
+         <div class="cert-card">
+          <div class="cert-img-container">
+            <img src="cert3.jpg" alt="Certification 4">
+          </div>
+          <h3 class="mt-4 font-semibold text-lg">google ads</h3>
+          <p class="text-gray-400 text-sm">udemy|2025</p>
+        </div>
+         <div class="cert-card">
+          <div class="cert-img-container">
+            <img src="cert4.jpg" alt="Certification 5">
+          </div>
+          <h3 class="mt-4 font-semibold text-lg">python:foundationals</h3>
+          <p class="text-gray-400 text-sm">udemy|2025</p>
+        </div>
+        <div class="cert-card"><div class="cert-img-container"><img src="cert1.png"></div><h3 class="mt-4 font-semibold text-lg">buisness for good</h3><p class="text-gray-400 text-sm">coursera|2025</p></div>
+        <div class="cert-card"><div class="cert-img-container"><img src="cert2.png"></div><h3 class="mt-4 font-semibold text-lg">corporate governance</h3><p class="text-gray-300 text-sm">coursera|2025</p></div>
+        <div class="cert-card"><div class="cert-img-container"><img src="cert5.jpeg"></div><h3 class="mt-4 font-semibold text-lg">ethical decision making</h3><p class="text-gray-400 text-sm">coursera|2025</p></div>
+        <div class="cert-card"><div class="cert-img-container"><img src="cert3.jpg"></div><h3 class="mt-4 font-semibold text-lg">google ads</h3><p class="text-gray-400 text-sm">udemy|2025</p></div>
+      <div class="cert-card"><div class="cert-img-container"><img src="cert4.jpg"></div><h3 class="mt-4 font-semibold text-lg">python:foundationals</h3><p class="text-gray-400 text-sm">udemy|2025</p></div>
+</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- PROJECTS -->
+<section id="projects" class="section reveal px-8 py-20 max-w-7xl">
+  <h2 class="text-4xl font-bold mb-8">
+    Selected <span class="text-primary">Projects</span>
+  </h2>
+
+  <p class="text-gray-400 max-w-3xl mb-12 leading-relaxed">
+    A collection of projects where I’ve worked across frontend,
+    backend, APIs, and application logic. Each project solves a
+    real problem and is built with scalability and user experience in mind.
+  </p>
+
+  <div class="grid md:grid-cols-2 gap-10">
+
+    <!-- PROJECT 1: BOOK STORE -->
+    <div class="bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-primary/40 transition">
+      <h3 class="text-2xl font-bold mb-3">
+        Personal Book Store & Payment Platform
+      </h3>
+
+      <p class="text-gray-300 leading-relaxed mb-4">
+        A full-stack web application built to sell my personal book online.
+        The platform handles product display, secure payments,
+        and order processing using real-world APIs.
+      </p>
+
+      <ul class="text-gray-300 text-sm space-y-2 mb-5 list-disc list-inside">
+        <li>Built complete frontend UI for product discovery and checkout</li>
+        <li>Developed backend APIs for order and payment handling</li>
+        <li>Integrated <span class="text-primary">Razorpay</span> payment gateway</li>
+        <li>Handled payment verification, success & failure states</li>
+        <li>Focused on secure, predictable data flow</li>
+      </ul>
+
+      <div class="flex flex-wrap gap-3 text-xs text-gray-300">
+        <span class="px-3 py-1 rounded-full bg-black/40 border border-white/10">HTML</span>
+        <span class="px-3 py-1 rounded-full bg-black/40 border border-white/10"> CSS</span>
+        <span class="px-3 py-1 rounded-full bg-black/40 border border-white/10">JavaScript</span>
+        <span class="px-3 py-1 rounded-full bg-black/40 border border-white/10">APIs</span>
+        <span class="px-3 py-1 rounded-full bg-black/40 border border-white/10">Razorpay</span>
+      </div>
+
+      <div class="mt-6 text-sm text-gray-400">
+        GitHub & live demo link available
+      </div>
+    </div>
+
+    <!-- PROJECT 2: SWIPEFLIX -->
+    <div class="bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-primary/40 transition">
+      <h3 class="text-2xl font-bold mb-3">
+        SwipeFlix — Tinder-Style Movie Recommender
+      </h3>
+
+      <p class="text-gray-300 leading-relaxed mb-4">
+        A movie recommendation platform inspired by Tinder-style interactions,
+        where users swipe to like or dislike movies and receive
+        personalized suggestions over time.
+      </p>
+
+      <ul class="text-gray-300 text-sm space-y-2 mb-5 list-disc list-inside">
+        <li>Implemented swipe-based UI for movie discovery</li>
+        <li>Displays trending and popular movies dynamically</li>
+        <li>Designed logic for adapting recommendations based on user behavior</li>
+        <li>Focused on smooth interactions and mobile-first UX</li>
+        <li>Built with extensibility for future personalization algorithms</li>
+      </ul>
+
+      <div class="flex flex-wrap gap-3 text-xs text-gray-300">
+        <span class="px-3 py-1 rounded-full bg-black/40 border border-white/10">HTML</span>
+        <span class="px-3 py-1 rounded-full bg-black/40 border border-white/10">CSS</span>
+        <span class="px-3 py-1 rounded-full bg-black/40 border border-white/10">JavaScript</span>
+        <span class="px-3 py-1 rounded-full bg-black/40 border border-white/10">UI/UX</span>
+        <span class="px-3 py-1 rounded-full bg-black/40 border border-white/10">Recommendation Logic</span>
+      </div>
+
+      <div class="mt-6 text-sm text-gray-400">
+        GitHub repository linked
+      </div>
+    </div>
+
+    <!-- PROJECT 3: MOOD TRACKER -->
+    <div class="bg-white/5 p-8 rounded-2xl border border-white/10 hover:border-primary/40 transition md:col-span-2">
+      <h3 class="text-2xl font-bold mb-3">
+        Music Mood Tracker & Recommendation App
+      </h3>
+
+      <p class="text-gray-300 leading-relaxed mb-4 max-w-3xl">
+        An application designed to track a user’s emotional state
+        and recommend music accordingly. The focus is on calm UX,
+        meaningful interactions, and clean logic rather than visual overload.
+      </p>
+
+      <ul class="text-gray-300 text-sm space-y-2 mb-5 list-disc list-inside max-w-3xl">
+        <li>Implemented mood selection and tracking system</li>
+        <li>Mapped moods to curated music recommendations</li>
+        <li>Designed intuitive user flow with minimal friction</li>
+        <li>Structured code to support future ML-based recommendations</li>
+        <li>Focused on emotional clarity and usability</li>
+      </ul>
+
+      <div class="flex flex-wrap gap-3 text-xs text-gray-300">
+        <span class="px-3 py-1 rounded-full bg-black/40 border border-white/10">HTML</span>
+        <span class="px-3 py-1 rounded-full bg-black/40 border border-white/10">CSS</span>
+        <span class="px-3 py-1 rounded-full bg-black/40 border border-white/10">JavaScript</span>
+        <span class="px-3 py-1 rounded-full bg-black/40 border border-white/10">Logic Design</span>
+        <span class="px-3 py-1 rounded-full bg-black/40 border border-white/10">UX Flow</span>
+      </div>
+
+      <div class="mt-6 text-sm text-gray-400">
+        GitHub repository linked
+      </div>
+    </div>
+
+  </div>
+</section>
+<section id="contact" class="section reveal px-8 py-20 max-w-6xl mx-auto">
+  <div class="grid md:grid-cols-2 gap-16 items-start">
+    
+    <div>
+      <h2 class="text-5xl font-bold mb-6">Let's <span class="text-primary">Connect</span></h2>
+      <p class="text-gray-400 text-lg mb-8 leading-relaxed">
+        I’m currently looking for new opportunities and collaborations. 
+        Whether you have a question or just want to say hi, my inbox is always open!
+      </p>
+
+      <div class="space-y-6">
+        <a href="mailto:yourname@gmail.com" class="flex items-center gap-4 group">
+          <div class="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-primary group-hover:bg-primary/10 transition-all">
+            <i class="devicon-google-plain text-xl"></i>
+          </div>
+          <div>
+            <p class="text-xs text-gray-500 uppercase tracking-widest">Email Me</p>
+            <p class="text-gray-200 font-medium">abhishekkprakashh@gmail.com</p>
+          </div>
+        </a>
+
+        <div class="flex gap-4 pt-4">
+          <a href="https://github.com/Abby284" class="social-icon-btn"><i class="devicon-github-original"></i></a>
+          <a href="https://www.linkedin.com/in/abhishek-prakash-707374257/" class="social-icon-btn"><i class="devicon-linkedin-plain"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white/5 p-8 rounded-3xl border border-white/10 backdrop-blur-xl relative overflow-hidden">
+      <div class="absolute -top-24 -right-24 w-48 h-48 bg-primary/20 blur-[80px] rounded-full"></div>
+      
+      <form class="space-y-5 relative z-10">
+        <div class="grid grid-cols-2 gap-4">
+          <div class="space-y-2">
+            <label class="text-xs font-semibold uppercase tracking-wider text-gray-400">Name</label>
+            <input type="text" placeholder="enter your name" class="contact-input">
+          </div>
+          <div class="space-y-2">
+            <label class="text-xs font-semibold uppercase tracking-wider text-gray-400">Email</label>
+            <input type="email" placeholder="enter mail" class="contact-input">
+          </div>
+        </div>
+        
+        <div class="space-y-2">
+          <label class="text-xs font-semibold uppercase tracking-wider text-gray-400">Subject</label>
+          <input type="text" placeholder="Project Inquiry" class="contact-input">
+        </div>
+
+        <div class="space-y-2">
+          <label class="text-xs font-semibold uppercase tracking-wider text-gray-400">Message</label>
+          <textarea rows="4" placeholder="Tell me about your project..." class="contact-input resize-none"></textarea>
+        </div>
+
+        <button class="w-full bg-primary hover:bg-red-600 text-white font-bold py-4 rounded-xl transition-all hover:shadow-[0_0_30px_rgba(239,68,68,0.4)] flex items-center justify-center gap-2 group">
+          Send Message
+          <span class="group-hover:translate-x-1 transition-transform">→</span>
+        </button>
+      </form>
+    </div>
+
+  </div>
+</section>
+<footer class="py-10 border-t border-white/10 text-center opacity-60 hover:opacity-100 transition-opacity">
+  <p class="text-xs tracking-[0.2em] uppercase font-extrabold">
+    Designed & Directed by <span class="text-primary">Abhishek</span>
+  </p>
+  <p class="text-[10px] mt-2 text-gray-500 uppercase font-bold">
+    No cubicles were harmed in the making of this website.
+  </p>
+</footer>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html> 

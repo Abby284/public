@@ -29,7 +29,8 @@ playBtn.addEventListener("click", () => {
   }, 1000);
 
   setTimeout(() => {
-    window.location.href = "index.html";
+    window.location.href = "/public/portfolio.html";
+    intro
   }, 1600);
 });
 
