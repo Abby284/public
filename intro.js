@@ -29,7 +29,7 @@ playBtn.addEventListener("click", () => {
   }, 1000);
 
   setTimeout(() => {
-    window.location.href = "index.html";
+    window.location.href = "./index.html";
   }, 1600);
 });
 
