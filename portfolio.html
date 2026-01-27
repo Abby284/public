@@ -503,6 +503,49 @@ body::before {
 ::-webkit-scrollbar-thumb:hover {
   background: #ef4444;
 }
+    /* Hamburger */
+
+.burger {
+  position: absolute;
+  left: 6px;
+  right: 6px;
+  height: 2px;
+  background: white;
+  transition: .35s;
+}
+
+.burger.top { top: 10px; }
+.burger.mid { top: 19px; }
+.burger.bot { top: 28px; }
+
+.menu-open .burger.top {
+  transform: rotate(45deg);
+  top: 19px;
+}
+
+.menu-open .burger.mid {
+  opacity: 0;
+}
+
+.menu-open .burger.bot {
+  transform: rotate(-45deg);
+  top: 19px;
+}
+
+/* Mobile menu active */
+
+.menu-open #mobile-menu {
+  pointer-events: auto;
+}
+
+.menu-open #menu-panel {
+  transform: translateX(0);
+}
+
+.menu-open #menu-backdrop {
+  opacity: 1;
+}
+
 
   </style>
 </head>
@@ -532,27 +575,51 @@ body::before {
     Abhi<span class="text-white">.dev</span>
   </h1>
 
-  <!-- Spacer pushes hamburger fully right -->
   <div class="flex-1"></div>
 
-  <!-- Hamburger (mobile only) -->
-  <button id="menu-toggle" class="md:hidden text-3xl text-white">
-    ☰
+  <!-- Hamburger -->
+  <button id="menu-toggle" class="md:hidden relative w-10 h-10">
+
+    <span class="burger top"></span>
+    <span class="burger mid"></span>
+    <span class="burger bot"></span>
+
   </button>
 
-  <!-- Desktop links -->
+  <!-- Desktop Nav -->
   <div class="hidden md:flex gap-8 text-sm font-medium uppercase tracking-widest text-gray-400">
-    <a href="#about" class="hover:text-primary transition-colors">About</a>
-    <a href="#stack" class="hover:text-primary transition-colors">Stack</a>
-    <a href="#certificates" class="hover:text-primary transition-colors">Certifications</a>
-    <a href="#projects" class="hover:text-primary transition-colors">Work</a>
-    <a href="#contact" class="hover:text-primary transition-colors">Contact</a>
+    <a href="#about" class="hover:text-primary">About</a>
+    <a href="#stack" class="hover:text-primary">Stack</a>
+    <a href="#certificates" class="hover:text-primary">Certifications</a>
+    <a href="#projects" class="hover:text-primary">Work</a>
+    <a href="#contact" class="hover:text-primary">Contact</a>
   </div>
 
 </nav>
 
-<!-- spacer -->
 <div class="h-20"></div>
+
+<!-- MOBILE DRAWER -->
+<div id="mobile-menu" class="fixed inset-0 z-[90] pointer-events-none">
+
+  <!-- backdrop -->
+  <div id="menu-backdrop" class="absolute inset-0 bg-black/70 backdrop-blur opacity-0 transition"></div>
+
+  <!-- drawer -->
+  <div id="menu-panel" class="absolute right-0 top-0 h-full w-[75%] bg-black/80 backdrop-blur-xl translate-x-full transition">
+
+    <div class="pt-32 px-8 flex flex-col gap-8 text-xl">
+
+      <a href="#about">About</a>
+      <a href="#stack">Stack</a>
+      <a href="#certificates">Certifications</a>
+      <a href="#projects">Work</a>
+      <a href="#contact">Contact</a>
+
+    </div>
+
+  </div>
+</div>
 
 
 <section class="min-h-[80vh] flex items-center justify-center px-8 relative overflow-hidden">
