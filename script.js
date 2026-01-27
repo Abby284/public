@@ -140,4 +140,17 @@ menuToggle.addEventListener('click', () => {
   
   // Update the number text
   percentText.innerText = Math.round(scrolled);
+});// Mobile Menu
+
+const toggle = document.getElementById("menu-toggle");
+const backdrop = document.getElementById("menu-backdrop");
+
+toggle.addEventListener("click", () => {
+  document.body.classList.toggle("menu-open");
+  document.body.classList.toggle("overflow-hidden");
+});
+
+backdrop.addEventListener("click", () => {
+  document.body.classList.remove("menu-open");
+  document.body.classList.remove("overflow-hidden");
 });
