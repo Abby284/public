@@ -473,6 +473,37 @@ body::before {
     animation-duration: 0.5s; /* "Revving" the flicker when you hover */
     cursor: pointer;
 }
+    /* ================= CUSTOM SCROLLBAR ================= */
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #ef4444 #050505;
+}
+
+/* Chrome / Edge / Safari */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    #ef4444,
+    #7f1d1d
+  );
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ef4444;
+}
+
   </style>
 </head>
 
