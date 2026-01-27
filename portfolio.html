@@ -44,6 +44,29 @@
     transform: scale(1.03);
   }
 }
+/* ===== MOBILE TIMELINE FIX ===== */
+@media (max-width: 768px) {
+
+  .timeline {
+    border-left: none;
+    margin-left: 0;
+  }
+
+  .timeline-item {
+    padding-left: 0;
+  }
+
+  .timeline-dot {
+    left: 0;
+    top: -10px;
+    position: relative;
+    margin-bottom: 10px;
+  }
+
+  .timeline-card {
+    width: 100%;
+  }
+}
 
     /* Cursor */
     #cursor {
