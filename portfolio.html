@@ -524,19 +524,36 @@ body::before {
 </div>
 <main>
 <!-- NAVBAR -->
-<nav class="fixed top-0 left-0 w-full z-[100] flex justify-between px-8 py-4 border-b border-white/10 backdrop-blur-md bg-black/50">
-  <h1 class="text-2xl font-bold text-primary tracking-tighter">Abhi<span class="text-white">.dev</span></h1>
- <button id="menu-toggle" class="md:hidden text-2xl text-white">
-  ☰
-</button> <div class="hidden md:flex gap-8 text-sm font-medium uppercase tracking-widest text-gray-400">
+<!-- NAVBAR -->
+<nav class="fixed top-0 left-0 w-full z-[100] flex items-center px-6 md:px-8 py-4 border-b border-white/10 backdrop-blur-md bg-black/50">
+
+  <!-- Logo -->
+  <h1 class="text-2xl font-bold text-primary tracking-tighter">
+    Abhi<span class="text-white">.dev</span>
+  </h1>
+
+  <!-- Spacer pushes hamburger fully right -->
+  <div class="flex-1"></div>
+
+  <!-- Hamburger (mobile only) -->
+  <button id="menu-toggle" class="md:hidden text-3xl text-white">
+    ☰
+  </button>
+
+  <!-- Desktop links -->
+  <div class="hidden md:flex gap-8 text-sm font-medium uppercase tracking-widest text-gray-400">
     <a href="#about" class="hover:text-primary transition-colors">About</a>
     <a href="#stack" class="hover:text-primary transition-colors">Stack</a>
     <a href="#certificates" class="hover:text-primary transition-colors">Certifications</a>
     <a href="#projects" class="hover:text-primary transition-colors">Work</a>
     <a href="#contact" class="hover:text-primary transition-colors">Contact</a>
   </div>
+
 </nav>
+
+<!-- spacer -->
 <div class="h-20"></div>
+
 
 <section class="min-h-[80vh] flex items-center justify-center px-8 relative overflow-hidden">
   <div class="hero-chamber max-w-6xl w-full grid md:grid-cols-2 gap-10 p-12 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-md relative z-10">
