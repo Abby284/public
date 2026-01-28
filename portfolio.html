@@ -618,25 +618,20 @@ body.menu-open #menu-backdrop {
 </nav>
 
 <div class="h-20"></div>
-
 <!-- MOBILE DRAWER -->
 <div id="mobile-menu" class="fixed inset-0 z-[90] pointer-events-none">
-
   <!-- backdrop -->
-  <div id="menu-backdrop" class="absolute inset-0 bg-black/70 backdrop-blur opacity-0 transition"></div>
+ <!-- MOBILE MENU OVERLAY -->
+<div id="menu-backdrop" class="fixed inset-0 bg-black/70 backdrop-blur z-[90] hidden"></div>
+<div id="menu-panel"
+class="fixed inset-0 z-[100] hidden flex flex-col items-center justify-center gap-10 text-sm tracking-[0.3em] uppercase text-gray-300">
+  <a href="#about">About</a>
+  <a href="#stack">Stack</a>
+  <a href="#certificates">Certifications</a>
+  <a href="#projects">Work</a>
+  <a href="#contact">Contact</a>
+</div>
 
-  <!-- drawer -->
-  <div id="menu-panel" class="absolute right-0 top-0 h-full w-[75%] bg-black/80 backdrop-blur-xl translate-x-full transition">
-
-    <div class="pt-32 px-8 flex flex-col gap-8 text-xl">
-
-      <a href="#about">About</a>
-      <a href="#stack">Stack</a>
-      <a href="#certificates">Certifications</a>
-      <a href="#projects">Work</a>
-      <a href="#contact">Contact</a>
-
-    </div>
 
   </div>
 </div>
