@@ -162,5 +162,22 @@ mobileLinks.forEach(link => {
   link.addEventListener("click", () => {
     closeMenu();
   });
+});const toggle = document.getElementById("menu-toggle");
+const panel = document.getElementById("menu-panel");
+const backdrop = document.getElementById("menu-backdrop");
+
+toggle.addEventListener("click", () => {
+  document.body.classList.toggle("menu-open");
 });
+
+backdrop.addEventListener("click", () => {
+  document.body.classList.remove("menu-open");
+});
+
+panel.querySelectorAll("a").forEach(link => {
+  link.addEventListener("click", () => {
+    document.body.classList.remove("menu-open");
+  });
+});
+
 
