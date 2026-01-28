@@ -141,16 +141,26 @@ menuToggle.addEventListener('click', () => {
   // Update the number text
   percentText.innerText = Math.round(scrolled);
 });// Mobile Menu
-
 const toggle = document.getElementById("menu-toggle");
 const backdrop = document.getElementById("menu-backdrop");
+const closeBtn = document.getElementById("menu-close");
+const mobileLinks = document.querySelectorAll("#menu-panel a");
+
+function closeMenu() {
+  document.body.classList.remove("menu-open");
+}
 
 toggle.addEventListener("click", () => {
   document.body.classList.toggle("menu-open");
-  document.body.classList.toggle("overflow-hidden");
 });
 
-backdrop.addEventListener("click", () => {
-  document.body.classList.remove("menu-open");
-  document.body.classList.remove("overflow-hidden");
+backdrop.addEventListener("click", closeMenu);
+closeBtn.addEventListener("click", closeMenu);
+
+// AUTO CLOSE WHEN LINK CLICKED
+mobileLinks.forEach(link => {
+  link.addEventListener("click", () => {
+    closeMenu();
+  });
 });
+
