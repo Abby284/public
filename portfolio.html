@@ -551,22 +551,6 @@ body.menu-open {
   overflow: hidden;
 }
 
-body.menu-open #menu-panel,
-body.menu-open #menu-backdrop {
-  display: flex;
-}
-
-#menu-panel a {
-  transition: color .25s ease, transform .25s ease;
-}
-
-#menu-panel a:hover {
-  color: #ef4444;
-  transform: scale(1.1);
-}
-
-
-
   </style>
 </head>
 
@@ -625,11 +609,6 @@ body.menu-open #menu-backdrop {
 <div id="menu-backdrop" class="fixed inset-0 bg-black/70 backdrop-blur z-[90] hidden"></div>
 <div id="menu-panel"
 class="fixed inset-0 z-[100] hidden flex flex-col items-center justify-center gap-10 text-sm tracking-[0.3em] uppercase text-gray-300">
-  <a href="#about">About</a>
-  <a href="#stack">Stack</a>
-  <a href="#certificates">Certifications</a>
-  <a href="#projects">Work</a>
-  <a href="#contact">Contact</a>
 </div>
 
 
