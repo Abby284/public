@@ -547,6 +547,23 @@ body::before {
 }body.menu-open {
   overflow: hidden;
 }
+body.menu-open {
+  overflow: hidden;
+}
+
+body.menu-open #menu-panel,
+body.menu-open #menu-backdrop {
+  display: flex;
+}
+
+#menu-panel a {
+  transition: color .25s ease, transform .25s ease;
+}
+
+#menu-panel a:hover {
+  color: #ef4444;
+  transform: scale(1.1);
+}
 
 
 
